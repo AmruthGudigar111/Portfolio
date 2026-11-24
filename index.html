@@ -1,94 +1,375 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Amruth Gudigar | Portfolio</title>
-  <link href="assets/css/style.css" rel="stylesheet" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Amruth Gudigar | Application Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0f1c2e; --surface:#16273f; --line:#27405f; --text:#e8eef6; --muted:#95a8c0;
+  --signal:#3fd0bd; --packet:#f5a742; --on-signal:#06231f;
+  --head:'Bricolage Grotesque','Segoe UI',system-ui,sans-serif;
+  --body:'IBM Plex Sans','Segoe UI',system-ui,sans-serif;
+}
+:root[data-theme="light"]{
+  --bg:#eef2f7; --surface:#ffffff; --line:#cdd8e6; --text:#13233a; --muted:#51647d;
+  --signal:#0a8f7f; --packet:#c9740a; --on-signal:#ffffff;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{background:var(--bg);color:var(--text);font:400 1rem/1.65 var(--body);transition:background .3s,color .3s}
+a{color:var(--signal)}
+:focus-visible{outline:2px solid var(--packet);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 1.4rem}
+h1,h2,h3{font-family:var(--head);line-height:1.1;letter-spacing:-.02em}
+h2{font-size:clamp(1.8rem,4vw,2.5rem);margin-bottom:1.6rem}
+section{padding:4.5rem 0}
+
+/* nav */
+nav{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;gap:1rem;height:56px}
+.brand{font:700 1.05rem var(--head);text-decoration:none;color:var(--text);margin-right:auto}
+nav a.link{color:var(--muted);text-decoration:none;font-size:.92rem;padding:.3rem .1rem;border-bottom:2px solid transparent}
+nav a.link:hover,nav a.link.active{color:var(--text);border-color:var(--signal)}
+#theme{background:none;border:1px solid var(--line);color:var(--text);width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:1rem}
+#theme:hover{border-color:var(--signal)}
+@media(max-width:720px){nav a.link{display:none}}
+
+/* hero */
+#home{position:relative;min-height:calc(100vh - 56px);display:flex;align-items:center;overflow:hidden;padding:3rem 0}
+#net{position:absolute;inset:0;width:100%;height:100%}
+.hero{position:relative;pointer-events:none}
+.hero a,.hero button{pointer-events:auto}
+.avatar{width:112px;height:112px;border-radius:50%;border:3px solid var(--signal);display:grid;place-items:center;overflow:hidden;background:var(--surface);font:800 2.2rem var(--head);color:var(--signal);margin-bottom:1.4rem}
+.avatar img{width:100%;height:100%;object-fit:cover}
+h1{font-size:clamp(2.8rem,9vw,5.6rem);font-weight:800}
+.role{font:500 clamp(1.1rem,3vw,1.5rem) var(--head);color:var(--packet);margin:.9rem 0 1.2rem;min-height:1.6em}
+.role::after{content:"";display:inline-block;width:2px;height:1.1em;background:var(--packet);margin-left:3px;vertical-align:-.15em;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.hero p.sub{max-width:52ch;color:var(--muted);margin-bottom:1.8rem}
+.btns{display:flex;flex-wrap:wrap;gap:.8rem}
+.btn{display:inline-block;padding:.7rem 1.3rem;border-radius:999px;font-weight:500;text-decoration:none;border:1px solid var(--signal);cursor:pointer;font-family:var(--body);font-size:1rem;transition:transform .15s,background .2s}
+.btn.primary{background:var(--signal);color:var(--on-signal)}
+.btn.ghost{background:transparent;color:var(--signal)}
+.btn:hover{transform:translateY(-2px)}
+.hint{margin-top:1.6rem;font-size:.85rem;color:var(--muted)}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+.stat{padding:1.4rem;border-right:1px solid var(--line)}
+.stat:last-child{border-right:0}
+.stat b{display:block;font:800 2.4rem var(--head);color:var(--signal)}
+.stat span{color:var(--muted);font-size:.9rem}
+@media(max-width:600px){.stat{border-right:0;border-bottom:1px solid var(--line)}.stat:last-child{border-bottom:0}}
+.about p{max-width:68ch;margin-bottom:2rem}
+
+/* timeline */
+.job{border-left:2px solid var(--line);padding:0 0 0 1.5rem;position:relative}
+.job::before{content:"";position:absolute;left:-7px;top:.35rem;width:12px;height:12px;border-radius:50%;background:var(--signal)}
+.job button{all:unset;cursor:pointer;display:block;width:100%}
+.job h3{font-size:1.35rem}
+.job .meta{color:var(--muted);font-size:.92rem;margin-top:.2rem}
+.job .chev{float:right;transition:transform .25s;color:var(--signal)}
+.job.open .chev{transform:rotate(180deg)}
+.job ul{list-style:none;padding:0;max-height:0;overflow:hidden;transition:max-height .35s ease}
+.job.open ul{max-height:400px}
+.job li{padding:.55rem 0 .55rem 1.2rem;position:relative}
+.job li::before{content:"";position:absolute;left:0;top:1.1rem;width:6px;height:6px;border-radius:50%;background:var(--packet)}
+.award{margin-top:2rem;border:1px solid var(--packet);border-radius:12px;padding:1.1rem 1.3rem;background:var(--surface)}
+.award b{color:var(--packet)}
+
+/* skills */
+.tabs{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.4rem}
+.tab{background:none;border:1px solid var(--line);color:var(--muted);padding:.45rem 1rem;border-radius:999px;cursor:pointer;font:500 .92rem var(--body)}
+.tab:hover{border-color:var(--signal);color:var(--text)}
+.tab[aria-selected=true]{background:var(--signal);color:var(--on-signal);border-color:var(--signal)}
+.chips{display:flex;flex-wrap:wrap;gap:.7rem;min-height:3.4rem}
+.chip{padding:.55rem 1.1rem;border-radius:10px;background:var(--surface);border:1px solid var(--line);font-weight:500;animation:pop .25s ease both}
+@keyframes pop{from{opacity:0;transform:scale(.92)}}
+
+/* projects */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.2rem}
+.card{display:block;text-decoration:none;color:var(--text);background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1.5rem;transition:transform .2s,border-color .2s}
+.card:hover{transform:translateY(-4px);border-color:var(--signal)}
+.card h3{font-size:1.3rem;margin-bottom:.5rem}
+.card p{color:var(--muted);margin-bottom:1rem;font-size:.95rem}
+.card .go{color:var(--signal);font-weight:500}
+
+/* contact */
+form{max-width:560px;display:grid;gap:1rem}
+label{font-size:.9rem;color:var(--muted)}
+input,textarea{width:100%;margin-top:.3rem;padding:.8rem 1rem;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--text);font:inherit}
+input:focus,textarea:focus{outline:none;border-color:var(--signal)}
+.err{color:#ff7b7b;font-size:.85rem;min-height:1.1em}
+#status{min-height:1.6em;font-weight:500}
+.links{margin-top:2rem;display:flex;flex-wrap:wrap;gap:1.5rem;color:var(--muted)}
+footer{border-top:1px solid var(--line);padding:1.5rem 0;color:var(--muted);font-size:.9rem;text-align:center}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
 </head>
-<body class="bg-dark text-white">
-  <div class="container py-5">
+<body>
 
-    <!-- Home Section -->
-    <section id="home" class="text-center">
-      <img src="assets/img/profile.jpg" alt="Profile" class="rounded-circle mb-3" width="150" />
-      <h1>Amruth Gudigar</h1>
-      <p class="lead">Application Engineer</p>
-      <p><i class="fas fa-phone-alt"></i> +91 9880252069 | <i class="fas fa-envelope"></i> amruthgudigar111@gmail.com</p>
-      <p><i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/amruth-gudigar/" class="text-info">LinkedIn</a></p>
-      <a href="https://drive.google.com/file/d/1DCS-WU69hrxq9Iud9irV7mP_IUBQ3i8Y/view?usp=sharing" class="btn btn-outline-info mt-2">Download Resume</a>
-    </section>
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#home">Amruth Gudigar</a>
+    <a class="link" href="#about">About</a>
+    <a class="link" href="#experience">Experience</a>
+    <a class="link" href="#skills">Skills</a>
+    <a class="link" href="#projects">Projects</a>
+    <a class="link" href="#contact">Contact</a>
+    <button id="theme" aria-label="Switch between dark and light theme">☀</button>
+  </div>
+</nav>
 
-    <hr />
+<section id="home">
+  <canvas id="net" aria-hidden="true"></canvas>
+  <div class="wrap hero">
+    <div class="avatar"><img src="assets/img/profile.jpg" alt="Amruth Gudigar" onerror="this.remove();this.parentNode.textContent='AG'"></div>
+    <h1>Amruth<br>Gudigar</h1>
+    <p class="role" id="role" aria-label="Application Engineer"></p>
+    <p class="sub">Five years of building software, running servers and teaching people how to use complex tools, all in one role.</p>
+    <div class="btns">
+      <a class="btn primary" href="https://drive.google.com/file/d/1DCS-WU69hrxq9Iud9irV7mP_IUBQ3i8Y/view?usp=sharing" target="_blank" rel="noopener">Download resume</a>
+      <a class="btn ghost" href="#contact">Get in touch</a>
+    </div>
+    <p class="hint">Click anywhere in the network to send a packet.</p>
+  </div>
+</section>
 
-    <!-- About Section -->
-    <section id="about" class="mt-4">
-      <h2>About</h2>
-      <p>Passionate and dedicated Application Engineer with 5+ years in system administration, software development, and customer support. Eager to join innovative projects and exceed expectations. Proven track record of delivering results and collaborating effectively to achieve business goals.</p>
-    </section>
+<section id="about" class="about">
+  <div class="wrap">
+    <h2>About</h2>
+    <p>I'm an Application Engineer with 5+ years across system administration, software development and customer support. I like joining projects where I can build, fix and explain things, and I work closely with teams to turn business goals into delivered results.</p>
+    <div class="stats">
+      <div class="stat"><b data-count="5" data-suffix="+">0</b><span>Years of experience</span></div>
+      <div class="stat"><b data-count="2">0</b><span>Languages in daily use</span></div>
+      <div class="stat"><b data-count="2">0</b><span>Live projects</span></div>
+      <div class="stat"><b data-count="1">0</b><span>Completion award</span></div>
+    </div>
+  </div>
+</section>
 
-    <!-- Experience Section -->
-    <section id="experience" class="mt-4">
-      <h2>Experience</h2>
-      <h5>Application Engineer - TETCOS LLP</h5>
-      <p><em>Jun 2019 - Sep 2024 | Bengaluru, India</em></p>
+<section id="experience">
+  <div class="wrap">
+    <h2>Experience</h2>
+    <div class="job open">
+      <button aria-expanded="true">
+        <span class="chev">▾</span>
+        <h3>Application Engineer, TETCOS LLP</h3>
+        <div class="meta">Jun 2019 – Sep 2024 · Bengaluru, India</div>
+      </button>
       <ul>
         <li>Developed and maintained applications using Python and C.</li>
-        <li>Administered infrastructure across Windows/Linux with VMWare, Hyper-V.</li>
-        <li>Conducted onsite and online software demos and training.</li>
-        <li>Collaborated with teams to manage and deliver successful projects.</li>
+        <li>Administered infrastructure across Windows and Linux with VMware and Hyper-V.</li>
+        <li>Ran onsite and online software demos and training sessions.</li>
+        <li>Worked with teams to manage and deliver successful projects.</li>
       </ul>
-    </section>
+    </div>
+    <div class="award"><b>5-Year Completion Award.</b> Honored by TETCOS LLP for consistent contributions in customer support, development and training.</div>
 
-    <!-- Education Section -->
-    <section id="education" class="mt-4">
-      <h2>Education</h2>
-      <ul>
-        <li><strong>Bachelor in Computer Applications</strong> – Singhania University</li>
-        <li><strong>Diploma in Computer Science</strong> – Nitte Rukmini Adyanthaya Memorial Polytechnic</li>
-      </ul>
-    </section>
-
-    <!-- Skills Section -->
-    <section id="skills" class="mt-4">
-      <h2>Skills</h2>
-      <ul>
-        <li>Programming: Python, C, MATLAB</li>
-        <li>System Administration: Windows, Linux, VMWare, Hyper-V</li>
-        <li>Networking: TCP/IP, Server Setup</li>
-        <li>Tools: Visual Studio Code, Adobe Premiere Pro, XAMPP</li>
-        <li>Customer Support and Training</li>
-      </ul>
-    </section>
-
-    <!-- Projects or Awards Section -->
-    <section id="projects" class="mt-4">
-      <h2>Projects / Awards</h2>
-      <ul>
-        <li><strong>Online Compiler</strong> – <a href="https://amruthgudigar111.github.io/online-compiler-ui/" class="text-info" target="_blank">View Project</a></li>
-        <li><strong>SPAM Detection Tool</strong> – <a href="https://amruthgudigar111.github.io/Spam-Detector-UI/" class="text-info" target="_blank">View Project</a></li>
-        <li><strong>5-Year Completion Award</strong> – Honored by TETCOS LLP for consistent contributions and excellence in customer support, development, and training.</li>
-      </ul>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="mt-4">
-      <h2>Contact</h2>
-      <form action="https://formspree.io/f/mldnonye" method="POST">
-        <div class="mb-3">
-          <input type="text" class="form-control"  name="name" placeholder="Name" />
-        </div>
-        <div class="mb-3">
-          <input type="email" class="form-control" name="email" placeholder="Email" />
-        </div>
-        <div class="mb-3">
-          <textarea class="form-control" rows="4" name="message" placeholder="Message"></textarea>
-        </div>
-        <button type="submit" class="btn btn-info">Send</button>
-      </form>
-    </section>
+    <h2 style="margin-top:3.5rem">Education</h2>
+    <div class="grid">
+      <div class="card"><h3>Bachelor in Computer Applications</h3><p>Singhania University</p></div>
+      <div class="card"><h3>Diploma in Computer Science</h3><p>Nitte Rukmini Adyanthaya Memorial Polytechnic</p></div>
+    </div>
   </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <h2>Skills</h2>
+    <div class="tabs" role="tablist" id="tabs"></div>
+    <div class="chips" id="chips" aria-live="polite"></div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <h2>Projects</h2>
+    <div class="grid">
+      <a class="card" href="https://amruthgudigar111.github.io/online-compiler-ui/" target="_blank" rel="noopener">
+        <h3>Online Compiler</h3><p>Write and run code in the browser.</p><span class="go">View project ↗</span>
+      </a>
+      <a class="card" href="https://amruthgudigar111.github.io/Spam-Detector-UI/" target="_blank" rel="noopener">
+        <h3>SPAM Detection Tool</h3><p>Check whether a message looks like spam.</p><span class="go">View project ↗</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <h2>Contact</h2>
+    <form id="form" action="https://formspree.io/f/mldnonye" method="POST" novalidate>
+      <div><label for="name">Name</label><input id="name" name="name" autocomplete="name"><div class="err"></div></div>
+      <div><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email"><div class="err"></div></div>
+      <div><label for="message">Message</label><textarea id="message" name="message" rows="5"></textarea><div class="err"></div></div>
+      <div><button class="btn primary" type="submit">Send message</button></div>
+      <div id="status" role="status"></div>
+    </form>
+    <div class="links">
+      <span>+91 9880252069</span>
+      <a href="mailto:amruthgudigar111@gmail.com">amruthgudigar111@gmail.com</a>
+      <a href="https://www.linkedin.com/in/amruth-gudigar/" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<footer>© <span id="yr"></span> Amruth Gudigar</footer>
+
+<script>
+(function(){
+  var $=function(s,r){return (r||document).querySelector(s)}, $$=function(s,r){return [].slice.call((r||document).querySelectorAll(s))};
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  $('#yr').textContent=new Date().getFullYear();
+
+  /* theme */
+  var root=document.documentElement, tbtn=$('#theme');
+  try{var saved=localStorage.getItem('theme'); if(saved) root.dataset.theme=saved;}catch(e){}
+  function icon(){tbtn.textContent=root.dataset.theme==='dark'?'☀':'☾'}
+  icon();
+  tbtn.onclick=function(){
+    root.dataset.theme=root.dataset.theme==='dark'?'light':'dark'; icon();
+    try{localStorage.setItem('theme',root.dataset.theme)}catch(e){}
+  };
+
+  /* typing role */
+  var roles=['Application Engineer','Python & C developer','Systems administrator','Trainer and support lead'], ri=0, ci=0, del=false, el=$('#role');
+  if(reduce){el.textContent=roles[0]}else(function tick(){
+    var w=roles[ri];
+    el.textContent=w.slice(0,ci);
+    if(!del&&ci===w.length){del=true;return setTimeout(tick,1600)}
+    if(del&&ci===0){del=false;ri=(ri+1)%roles.length}
+    ci+=del?-1:1; setTimeout(tick,del?35:70);
+  })();
+
+  /* network canvas */
+  var cv=$('#net'), cx=cv.getContext('2d'), W,H,nodes=[],packets=[],mouse={x:-999,y:-999};
+  function css(v){return getComputedStyle(root).getPropertyValue(v).trim()}
+  function resize(){
+    var r=cv.parentNode.getBoundingClientRect(), d=devicePixelRatio||1;
+    W=r.width;H=r.height;cv.width=W*d;cv.height=H*d;cx.setTransform(d,0,0,d,0,0);
+    var n=Math.max(18,Math.min(48,Math.round(W*H/22000)));
+    nodes=[];for(var i=0;i<n;i++)nodes.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25});
+  }
+  function neighbors(a){var out=[];nodes.forEach(function(b){if(b!==a&&Math.hypot(a.x-b.x,a.y-b.y)<150)out.push(b)});return out}
+  function send(from){
+    var path=[from],cur=from,seen=[from];
+    for(var i=0;i<6;i++){
+      var nx=neighbors(cur).filter(function(n){return seen.indexOf(n)<0});
+      if(!nx.length)break;
+      cur=nx[Math.floor(Math.random()*nx.length)];seen.push(cur);path.push(cur);
+    }
+    if(path.length>1)packets.push({path:path,i:0,t:0});
+  }
+  function nearest(x,y){var best=null,bd=1e9;nodes.forEach(function(n){var d=Math.hypot(n.x-x,n.y-y);if(d<bd){bd=d;best=n}});return best}
+  var home=$('#home');
+  home.addEventListener('mousemove',function(e){var r=cv.getBoundingClientRect();mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top});
+  home.addEventListener('mouseleave',function(){mouse.x=mouse.y=-999});
+  home.addEventListener('click',function(e){
+    if(e.target.closest('a,button'))return;
+    var r=cv.getBoundingClientRect(),n=nearest(e.clientX-r.left,e.clientY-r.top);
+    if(n){send(n);send(n)}
+  });
+  function frame(){
+    cx.clearRect(0,0,W,H);
+    var sig=css('--signal'),pk=css('--packet');
+    nodes.forEach(function(n){
+      n.x+=n.vx;n.y+=n.vy;
+      if(n.x<0||n.x>W)n.vx*=-1; if(n.y<0||n.y>H)n.vy*=-1;
+      var dx=n.x-mouse.x,dy=n.y-mouse.y,d=Math.hypot(dx,dy);
+      if(d<120){n.x+=dx/d*1.2;n.y+=dy/d*1.2}
+    });
+    cx.lineWidth=1;
+    nodes.forEach(function(a,i){
+      for(var j=i+1;j<nodes.length;j++){
+        var b=nodes[j],d=Math.hypot(a.x-b.x,a.y-b.y);
+        if(d<150){cx.globalAlpha=(1-d/150)*.45;cx.strokeStyle=sig;cx.beginPath();cx.moveTo(a.x,a.y);cx.lineTo(b.x,b.y);cx.stroke()}
+      }
+    });
+    cx.globalAlpha=.9;cx.fillStyle=sig;
+    nodes.forEach(function(n){cx.beginPath();cx.arc(n.x,n.y,2.6,0,6.3);cx.fill()});
+    packets=packets.filter(function(p){
+      var a=p.path[p.i],b=p.path[p.i+1];
+      if(!b)return false;
+      p.t+=.035;
+      if(p.t>=1){p.t=0;p.i++;return p.i<p.path.length-1}
+      var x=a.x+(b.x-a.x)*p.t,y=a.y+(b.y-a.y)*p.t;
+      cx.globalAlpha=1;cx.fillStyle=pk;cx.shadowColor=pk;cx.shadowBlur=12;
+      cx.beginPath();cx.arc(x,y,4.5,0,6.3);cx.fill();cx.shadowBlur=0;
+      return true;
+    });
+    cx.globalAlpha=1;
+    if(!reduce)requestAnimationFrame(frame);
+  }
+  resize();frame();
+  addEventListener('resize',function(){resize();if(reduce)frame()});
+  if(!reduce)setInterval(function(){if(nodes.length&&!document.hidden)send(nodes[Math.floor(Math.random()*nodes.length)])},2500);
+
+  /* scrollspy */
+  var links=$$('nav a.link');
+  var spy=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting)links.forEach(function(l){l.classList.toggle('active',l.getAttribute('href')==='#'+e.target.id)});
+  })},{rootMargin:'-45% 0px -50% 0px'});
+  links.forEach(function(l){spy.observe($(l.getAttribute('href')))});
+
+  /* counters */
+  var co=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(!e.isIntersecting)return; co.unobserve(e.target);
+    var el=e.target,to=+el.dataset.count,suf=el.dataset.suffix||'',s=performance.now();
+    if(reduce){el.textContent=to+suf;return}
+    (function step(t){var p=Math.min((t-s)/1000,1);el.textContent=Math.round(to*(1-Math.pow(1-p,3)))+(p===1?suf:'');if(p<1)requestAnimationFrame(step)})(s);
+  })},{threshold:.6});
+  $$('[data-count]').forEach(function(el){co.observe(el)});
+
+  /* experience toggle */
+  $$('.job button').forEach(function(b){b.onclick=function(){
+    var j=b.parentNode,o=j.classList.toggle('open');b.setAttribute('aria-expanded',o);
+  }});
+
+  /* skills tabs */
+  var skills={
+    'Programming':['Python','C','MATLAB'],
+    'Systems':['Windows','Linux','VMware','Hyper-V'],
+    'Networking':['TCP/IP','Server setup'],
+    'Tools':['Visual Studio Code','Adobe Premiere Pro','XAMPP'],
+    'People':['Customer support','Training','Software demos']
+  };
+  var tabs=$('#tabs'),chips=$('#chips');
+  function show(k){
+    $$('.tab',tabs).forEach(function(t){t.setAttribute('aria-selected',t.textContent===k)});
+    chips.innerHTML='';
+    (k==='All'?[].concat.apply([],Object.keys(skills).map(function(x){return skills[x]})):skills[k]).forEach(function(s,i){
+      var c=document.createElement('span');c.className='chip';c.textContent=s;c.style.animationDelay=(i*30)+'ms';chips.appendChild(c);
+    });
+  }
+  ['All'].concat(Object.keys(skills)).forEach(function(k){
+    var b=document.createElement('button');b.className='tab';b.setAttribute('role','tab');b.textContent=k;b.onclick=function(){show(k)};tabs.appendChild(b);
+  });
+  show('All');
+
+  /* contact form */
+  var form=$('#form'),status=$('#status');
+  function setErr(id,msg){$('#'+id).parentNode.querySelector('.err').textContent=msg;return !msg}
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var n=form.name.value.trim(),m=form.email.value.trim(),t=form.message.value.trim();
+    var ok=setErr('name',n?'':'Enter your name.');
+    ok=setErr('email',/^\S+@\S+\.\S+$/.test(m)?'':'Enter a valid email address.')&&ok;
+    ok=setErr('message',t.length>=10?'':'Write at least 10 characters.')&&ok;
+    if(!ok){status.textContent='';return}
+    status.style.color='var(--muted)';status.textContent='Sending…';
+    fetch(form.action,{method:'POST',body:new FormData(form),headers:{Accept:'application/json'}})
+      .then(function(r){
+        if(!r.ok)throw 0;
+        status.style.color='var(--signal)';status.textContent='Message sent. Thanks, I will reply soon.';form.reset();
+      })
+      .catch(function(){status.style.color='#ff7b7b';status.textContent='Could not send. Please email me directly instead.'});
+  });
+})();
+</script>
 </body>
 </html>
